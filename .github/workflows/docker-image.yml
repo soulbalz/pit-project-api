@@ -2,9 +2,15 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: soulbalz/pit-project-api
 
 jobs:
   build:

@@ -2,11 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Exam;
+use App\Models\ExamResult;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    public function storeTest(Request $request)
+    {
+        $request->validate([
+            'user_code' => ['required', 'unique:users'],
+            'password' => ['required', 'confirmed'],
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+        ]);
+
+        $user = User::create([
+            'user_code' => $request->user_code,
+            'password' => $request->password,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'role' => 'student',
+        ]);
+
+        $exams = Exam::all();
+        foreach ($exams as $exam) {
+            ExamResult::create([
+                'user_code' => $user->user_code,
+                'exam_id' => $exam->_id,
+            ]);
+        }
+        return response(null, 201);
+    }
+
     public function getStudent(Request $request)
     {
         $students = User::where('role', 'student')->get();

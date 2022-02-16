@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/auth', [\App\Http\Controllers\AuthController::class, 'authenticate']);
-Route::post('/register', [\App\Http\Controllers\StudentController::class, 'store']);
+//Route::post('/register', [\App\Http\Controllers\StudentController::class, 'store']);
+Route::post('/register', [\App\Http\Controllers\StudentController::class, 'storeTest']);
 Route::post('/register/teacher', [\App\Http\Controllers\UserController::class, 'store']);
 Route::post('/mock', [\App\Http\Controllers\UserController::class, 'createMockUser']);
 

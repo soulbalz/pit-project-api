@@ -52,7 +52,7 @@ class ExaminationController extends Controller
         }
         foreach ($questionWritings as $questionWriting) {
             $examLogs[] = [
-                'user_code' => $exam->user_code,
+                'user_code' => $examResult->user_code,
                 'exam_id' => $exam->_id,
                 'exam_result_id' => $examResult->_id,
                 'question_id' => $questionWriting->_id,
@@ -61,7 +61,7 @@ class ExaminationController extends Controller
                 'question_type' => 'writing'
             ];
         }
-        ExamLog::where('user_code', $exam->user_code)->delete();
+        ExamLog::where('user_code', $examResult->user_code)->delete();
         ExamLog::insert($examLogs);
 
         $responseData = $examResult->toArray();
